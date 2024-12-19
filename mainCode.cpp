@@ -56,7 +56,7 @@ public:
     Graph(int vertices);
     void addEdge(int u, int v, int weight);
     pair<int, vector<int>> dijkstra(int start, int end); // Возвращает пару (вес пути, путь)
-    void showPath(const Manager& manager, const Garage& garage, const Phone& phone, const Computer& computer, const Tablet& tablet, int destination, const string& productType);
+    void showPath(const Manager& manager, const Garage& garage, const Phone& phone, const Computer& computer, const Tablet& tablet, int destination, const string& productType, const string& orderType);
     void readGraph(const string& filename);
     vector<Order> readOrders(const string& filename);
 private:
@@ -108,7 +108,7 @@ pair<int, vector<int>> Graph::dijkstra(int start, int end) {
     return { dist[end], path }; // Возвращаем вес и путь
 }
 
-void Graph::showPath(const Manager& manager, const Garage& garage, const Phone& phone, const Computer& computer, const Tablet& tablet, int destination, const string& productType) {
+void Graph::showPath(const Manager& manager, const Garage& garage, const Phone& phone, const Computer& computer, const Tablet& tablet, int destination, const string& productType, const string &orderType) {
     int managerCity = manager.getCity();
     int garageCity = garage.getCity();
     int warehouseCity = -1;
@@ -196,9 +196,9 @@ int main() {
     // Создаем граф
     Graph g(0);
     g.readGraph("graph.txt");
-    
+
     vector<Order> orders = g.readOrders("orders.txt");
-    
+
     // Создаем экземпляры классов
     Manager manager(0); // Менеджер в координатах 0
     Garage garage(1);   // Гараж в координатах 1
@@ -208,7 +208,7 @@ int main() {
     // Пример использования функции
     for (Order order : orders)
     {
-        g.showPath(manager, garage, phone, computer, tablet, 4, "computer"); // надо чтобы сюда передавался order
+        g.showPath(manager, garage, phone, computer, tablet, order.city, order.product, order.type);
     }
     return 0;
 }
