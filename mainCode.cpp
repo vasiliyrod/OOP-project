@@ -194,21 +194,21 @@ vector<Order> Graph::readOrders(const string& filename) {
 
 int main() {
     // Создаем граф
-    Graph g(6); // 6 вершин: менеджер, гараж, 3 склада и одна цель
-    g.addEdge(0, 1, 10); // Менеджер - Гараж
-    g.addEdge(0, 2, 3);  // Менеджер - Склад телефонов
-    g.addEdge(1, 2, 1);  // Гараж - Склад телефонов
-    g.addEdge(1, 3, 2);  // Гараж - Склад компьютеров
-    g.addEdge(2, 3, 8);  // Склад телефонов - Склад компьютеров
-    g.addEdge(2, 4, 2);  // Склад телефонов - Склад планшетов
-    g.addEdge(3, 4, 7);  // Склад компьютеров - Склад планшетов
+    Graph g(0);
+    g.readGraph("graph.txt");
+    
+    vector<Order> orders = g.readOrders("orders.txt");
+    
     // Создаем экземпляры классов
     Manager manager(0); // Менеджер в координатах 0
     Garage garage(1);   // Гараж в координатах 1
-    Phone phone(3); // Менеджер в координатах 0
+    Phone phone(3);
     Computer computer(1);
     Tablet tablet(4);
     // Пример использования функции
-    g.showPath(manager, garage, phone, computer, tablet, 4, "computer"); // Найти путь от менеджера через склад компьютеров до города 4
+    for (Order order : orders)
+    {
+        g.showPath(manager, garage, phone, computer, tablet, 4, "computer"); // надо чтобы сюда передавался order
+    }
     return 0;
 }
