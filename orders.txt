@@ -1,0 +1,3 @@
+sale 2 phone
+purchase 4 tablet
+sale 3 computer
